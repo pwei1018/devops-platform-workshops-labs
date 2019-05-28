@@ -158,3 +158,18 @@ objects:
       host: loki-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca
       routerName: router
       wildcardPolicy: None
+parameters:
+- description: Maximum amount of memory the container can use.
+  displayName: Memory Limit
+  name: MEMORY_LIMIT
+  required: true
+  value: 512Mi
+- description: The namespace this templated is deployed into.
+  displayName: Namespace
+  name: NAMESPACE
+  value: openshift
+- description: The name of the OpenShift Service exposed for the database.
+  displayName: Loki Service Name
+  name: LOKI_SERVICE_NAME
+  required: true
+  value: loki
