@@ -59,20 +59,18 @@ node {
                 | oc apply -f - -n ${DEV_NAMESPACE}"
 
             sh "echo Wait for service to be up"
-            timeout (time: 180, unit: 'SECONDS'){
-              openshift.withCluster() {
+            openshift.withCluster() {
                 openshift.withProject("${DEV_NAMESPACE}") {
-                  openshift.selector("dc", "${GRAFANA_SERVICE}").rollout().latest()
-                  def latestDeploymentVersion = openshift.selector('dc',"${GRAFANA_SERVICE}").object().status.latestVersion
-                  def rc = openshift.selector('rc', "${GRAFANA_SERVICE}-${latestDeploymentVersion}")
-                  timeout (time: 10, unit: 'MINUTES') {
-                    rc.untilEach(1){
-                      def rcMap = it.object()
-                      return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
+                    openshift.selector("dc", "${GRAFANA_SERVICE}").rollout().latest()
+                    def latestDeploymentVersion = openshift.selector('dc',"${GRAFANA_SERVICE}").object().status.latestVersion
+                    def rc = openshift.selector('rc', "${GRAFANA_SERVICE}-${latestDeploymentVersion}")
+                    timeout (time: 10, unit: 'MINUTES') {
+                        rc.untilEach(1){
+                            def rcMap = it.object()
+                            return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
+                        }
                     }
-                  }
                 }
-              }
             }
         }
     }
