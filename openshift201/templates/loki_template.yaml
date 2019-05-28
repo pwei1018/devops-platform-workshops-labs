@@ -23,7 +23,7 @@ objects:
     sessionAffinity: None
     type: ClusterIP
 - apiVersion:  apps.openshift.io/v1
-  kind: DeploymentConfig
+  kind: Deployment
   metadata:
     labels:
       app: ${LOKI_SERVICE_NAME}
@@ -34,7 +34,6 @@ objects:
     revisionHistoryLimit: 10
     selector:
       app: ${LOKI_SERVICE_NAME}
-      deploymentconfig: ${LOKI_SERVICE_NAME}
     strategy:
       rollingUpdate:
         maxSurge: 25%
@@ -44,7 +43,6 @@ objects:
       metadata:
         labels:
           app: ${LOKI_SERVICE_NAME}
-          deploymentconfig: ${LOKI_SERVICE_NAME}
       spec:
         affinity: {}
         containers:
