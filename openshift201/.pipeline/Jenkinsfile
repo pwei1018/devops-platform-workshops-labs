@@ -63,6 +63,7 @@ node {
                 openshift.withProject("${DEV_NAMESPACE}") {
                     openshift.selector("dc", "${GRAFANA_SERVICE}").rollout().latest()
                     def latestDeploymentVersion = openshift.selector('dc',"${GRAFANA_SERVICE}").object().status.latestVersion
+                    sh "echo ${GRAFANA_SERVICE}-${latestDeploymentVersion}"
                     def rc = openshift.selector('rc', "${GRAFANA_SERVICE}-${latestDeploymentVersion}")
                     timeout (time: 10, unit: 'MINUTES') {
                         rc.untilEach(1){
