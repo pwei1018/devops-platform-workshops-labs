@@ -7,8 +7,8 @@ items:
       app: ${LOKI_SERVICE_NAME}
       chart: loki-0.8.4
       heritage: Tiller
-      release: pwei1018-loki
-    name: pwei1018-loki
+      release: ${LOKI_SERVICE_NAME}
+    name: ${LOKI_SERVICE_NAME}
   spec:
     ports:
     - name: http-metrics
@@ -17,7 +17,7 @@ items:
       targetPort: http-metrics
     selector:
       app: ${LOKI_SERVICE_NAME}
-      release: pwei1018-loki
+      release: ${LOKI_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
   status:
@@ -30,8 +30,8 @@ items:
       app: ${LOKI_SERVICE_NAME}
       chart: loki-0.8.4
       heritage: Tiller
-      release: pwei1018-loki
-    name: pwei1018-loki
+      release: ${LOKI_SERVICE_NAME}
+    name: ${LOKI_SERVICE_NAME}
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -39,7 +39,7 @@ items:
     selector:
       matchLabels:
         app: ${LOKI_SERVICE_NAME}
-        release: pwei1018-loki
+        release: ${LOKI_SERVICE_NAME}
     strategy:
       rollingUpdate:
         maxSurge: 25%
@@ -50,7 +50,7 @@ items:
         labels:
           app: ${LOKI_SERVICE_NAME}
           name: ${LOKI_SERVICE_NAME}
-          release: pwei1018-loki
+          release: ${LOKI_SERVICE_NAME}
       spec:
         affinity: {}
         containers:
@@ -106,7 +106,7 @@ items:
         - name: config
           secret:
             defaultMode: 420
-            secretName: pwei1018-loki
+            secretName: ${LOKI_SERVICE_NAME}
         - emptyDir: {}
           name: storage
   status:
@@ -120,7 +120,7 @@ items:
       type: Available
     - lastTransitionTime: 2019-05-27T19:12:59Z
       lastUpdateTime: 2019-05-27T19:14:19Z
-      message: ReplicaSet "pwei1018-loki-b5c5bbc68" has successfully progressed.
+      message: ReplicaSet "${LOKI_SERVICE_NAME}-b5c5bbc68" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
@@ -141,7 +141,7 @@ items:
       targetPort: http-metrics
     to:
       kind: Service
-      name: pwei1018-loki
+      name: ${LOKI_SERVICE_NAME}
       weight: 100
     wildcardPolicy: None
   status:
