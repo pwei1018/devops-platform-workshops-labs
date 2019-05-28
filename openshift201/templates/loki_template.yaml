@@ -1,5 +1,10 @@
-apiVersion: v1
-items:
+apiVersion: template.openshift.io/v1
+kind: Template
+labels:
+  template: loki-template
+message: |-
+  The following service(s) have been created in your project: ${LOKI_SERVICE_NAME}.
+objects:
 - apiVersion: v1
   kind: Service
   metadata:
@@ -153,5 +158,3 @@ items:
       host: loki-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca
       routerName: router
       wildcardPolicy: None
-kind: List
-
