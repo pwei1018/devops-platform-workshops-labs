@@ -32,7 +32,7 @@ node {
     stage ('Deploy Prometheus to Dev'){
         dir ('simple_pipeline') {
             checkout scm
-            sh "oc process -f openshift201/templates/prometheus_template.yaml -p  PROMETHEUSSERVICE_NAME=${PROMETHEUS_SERVICE} | oc apply -f - -n ${DEV_NAMESPACE}"
+            sh "oc process -f openshift201/templates/prometheus_template.yaml -p  PROMETHEUS_SERVICE_NAME=${PROMETHEUS_SERVICE} | oc apply -f - -n ${DEV_NAMESPACE}"
             sh "echo Wait for service to be up"
             timeout (time: 180, unit: 'SECONDS'){
                 openshift.withCluster() {
