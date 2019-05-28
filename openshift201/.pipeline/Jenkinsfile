@@ -31,7 +31,6 @@ node {
 
     stage ('Deploy Prometheus to Dev'){
         dir ('simple_pipeline') {
-            checkout scm
             sh "oc process -f openshift201/templates/prometheus_template.yaml -p  PROMETHEUS_SERVICE_NAME=${PROMETHEUS_SERVICE} | oc apply -f - -n ${DEV_NAMESPACE}"
             sh "echo Wait for service to be up"
             timeout (time: 180, unit: 'SECONDS'){
@@ -49,7 +48,6 @@ node {
 
     stage ('Deploy Grafana to Dev'){
         dir ('simple_pipeline') {
-            checkout scm
             sh "oc process -f openshift201/templates/grafana_template.yaml \
                 -p GRAFANA_SERVICE_NAME=${GRAFANA_SERVICE}\
                 -p LOKI_SERVICE_NAME=${LOKI_SERVICE} \
@@ -59,13 +57,13 @@ node {
                 | oc apply -f - -n ${DEV_NAMESPACE}"
 
             sh "echo Wait for service to be up"
-            openshift.withCluster() {
-                openshift.withProject("${DEV_NAMESPACE}") {
-                    openshift.selector("dc", "${GRAFANA_SERVICE}").rollout().latest()
-                    def latestDeploymentVersion = openshift.selector('dc',"${GRAFANA_SERVICE}").object().status.latestVersion
-                    sh "echo ${GRAFANA_SERVICE}-${latestDeploymentVersion}"
-                    def rc = openshift.selector('rc', "${GRAFANA_SERVICE}-${latestDeploymentVersion}")
-                    timeout (time: 10, unit: 'MINUTES') {
+            timeout (time: 10, unit: 'MINUTES') {
+                openshift.withCluster() {
+                    openshift.withProject("${DEV_NAMESPACE}") {
+                        openshift.selector("dc", "${GRAFANA_SERVICE}").rollout().latest()
+                        def latestDeploymentVersion = openshift.selector('dc',"${GRAFANA_SERVICE}").object().status.latestVersion
+                        sh "echo ${GRAFANA_SERVICE}-${latestDeploymentVersion}"
+                        def rc = openshift.selector('rc', "${GRAFANA_SERVICE}-${latestDeploymentVersion}")
                         rc.untilEach(1){
                             def rcMap = it.object()
                             return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
@@ -82,7 +80,6 @@ node {
                 input "Deploy to Prod?"
             }
 
-            checkout scm
             sh "oc process -f openshift201/templates/loki_template.yaml -p  LOKI_SERVICE_NAME=${LOKI_SERVICE} | oc apply -f - -n ${PROD_NAMESPACE}"
             sh "echo Wait for service to be up"
             timeout (time: 180, unit: 'SECONDS'){
