@@ -25,8 +25,6 @@ objects:
       release: ${LOKI_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
-  status:
-    loadBalancer: {}
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -114,21 +112,6 @@ objects:
             secretName: ${LOKI_SERVICE_NAME}
         - emptyDir: {}
           name: storage
-  status:
-    availableReplicas: 1
-    conditions:
-    - lastTransitionTime: 2019-05-27T19:14:19Z
-      lastUpdateTime: 2019-05-27T19:14:19Z
-      message: Deployment has minimum availability.
-      reason: MinimumReplicasAvailable
-      status: "True"
-      type: Available
-    - lastTransitionTime: 2019-05-27T19:12:59Z
-      lastUpdateTime: 2019-05-27T19:14:19Z
-      message: ReplicaSet "${LOKI_SERVICE_NAME}-b5c5bbc68" has successfully progressed.
-      reason: NewReplicaSetAvailable
-      status: "True"
-      type: Progressing
     observedGeneration: 1
     readyReplicas: 1
     replicas: 1
@@ -149,15 +132,6 @@ objects:
       name: ${LOKI_SERVICE_NAME}
       weight: 100
     wildcardPolicy: None
-  status:
-    ingress:
-    - conditions:
-      - lastTransitionTime: 2019-05-27T19:17:45Z
-        status: "True"
-        type: Admitted
-      host: loki-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca
-      routerName: router
-      wildcardPolicy: None
 parameters:
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
