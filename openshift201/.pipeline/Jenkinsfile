@@ -50,7 +50,7 @@ node {
     stage ('Deploy Grafana to Dev'){
         dir ('simple_pipeline') {
             checkout scm
-            sh "oc process -f openshift201/templates/grafana_template.yamloc process -f grafana_template_all.yaml \
+            sh "oc process -f openshift201/templates/grafana_template.yaml \
                 -p GRAFANA_SERVICE_NAME=${GRAFANA_SERVICE}\
                 -p LOKI_SERVICE_NAME=${LOKI_SERVICE} \
                 -p PROMETHEUS_SERVICE_NAME=${PROMETHEUS_SERVICE} \
