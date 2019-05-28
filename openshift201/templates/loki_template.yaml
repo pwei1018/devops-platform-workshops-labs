@@ -22,7 +22,7 @@ objects:
       release: ${LOKI_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
-- apiVersion:  v1
+- apiVersion:  apps/v1
   kind: Deployment
   metadata:
     labels:
