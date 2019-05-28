@@ -4,7 +4,10 @@
 def TOOLS_NAMESPACE = "s4g19x-pwei1018-openshift201-may2019-tools"
 def DEV_NAMESPACE = "s4g19x-pwei1018-openshift201-may2019-dev"
 def PROD_NAMESPACE = "s4g19x-pwei1018-openshift201-may2019-prod"
+def SUB_DOMAIN = "pathfinder.gov.bc.ca"
 def LOKI_SERVICE  = "pwei1018-loki"
+def PROMETHEUS_SERVICE  = "pwei1018-prometheus"
+def GRAFANA_SERVICE  = "pwei1018-grafana"
 
 
 //Pipeline
@@ -22,6 +25,54 @@ node {
                         dc.rollout().status()
                     }
                 }
+            }
+        }
+    }
+
+    stage ('Deploy Prometheus to Dev'){
+        dir ('simple_pipeline') {
+            checkout scm
+            sh "oc process -f openshift201/templates/prometheus_template.yaml -p  PROMETHEUSSERVICE_NAME=${PROMETHEUS_SERVICE} | oc apply -f - -n ${DEV_NAMESPACE}"
+            sh "echo Wait for service to be up"
+            timeout (time: 180, unit: 'SECONDS'){
+                openshift.withCluster() {
+                    openshift.withProject("${DEV_NAMESPACE}") {
+                        def dc = openshift.selector('deployment', "${PROMETHEUS_SERVICE}")
+                        // this will wait until the desired replicas are available
+                        dc.rollout().status()
+                    }
+                }
+            }
+        }
+    }
+
+
+    stage ('Deploy Grafana to Dev'){
+        dir ('simple_pipeline') {
+            checkout scm
+            sh "oc process -f openshift201/templates/grafana_template.yamloc process -f grafana_template_all.yaml \
+                -p GRAFANA_SERVICE_NAME=${GRAFANA_SERVICE}\
+                -p LOKI_SERVICE_NAME=${LOKI_SERVICE} \
+                -p PROMETHEUS_SERVICE_NAME=${PROMETHEUS_SERVICE} \
+                -p ROUTE_SUBDOMAIN=${SUB_DOMAIN} \
+                -p NAMESPACE=${DEV_NAMESPACE} \
+                | oc apply -f - -n ${DEV_NAMESPACE}"
+
+            sh "echo Wait for service to be up"
+            timeout (time: 180, unit: 'SECONDS'){
+              openshift.withCluster() {
+                openshift.withProject("${DEV_NAMESPACE}") {
+                  openshift.selector("dc", "${GRAFANA_SERVICE}").rollout().latest()
+                  def latestDeploymentVersion = openshift.selector('dc',"${GRAFANA_SERVICE}").object().status.latestVersion
+                  def rc = openshift.selector('rc', "${GRAFANA_SERVICE}-${latestDeploymentVersion}")
+                  timeout (time: 10, unit: 'MINUTES') {
+                    rc.untilEach(1){
+                      def rcMap = it.object()
+                      return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
+                    }
+                  }
+                }
+              }
             }
         }
     }
