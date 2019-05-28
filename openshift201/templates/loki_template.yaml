@@ -10,6 +10,9 @@ objects:
   metadata:
     labels:
       app: ${LOKI_SERVICE_NAME}
+      chart: loki-0.8.4
+      heritage: Tiller
+      release: ${LOKI_SERVICE_NAME}
     name: ${LOKI_SERVICE_NAME}
   spec:
     ports:
@@ -22,18 +25,24 @@ objects:
       release: ${LOKI_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
-- apiVersion:  apps/v1
+- apiVersion: apps/v1
   kind: Deployment
   metadata:
+    generation: 1
     labels:
       app: ${LOKI_SERVICE_NAME}
+      chart: loki-0.8.4
+      heritage: Tiller
+      release: ${LOKI_SERVICE_NAME}
     name: ${LOKI_SERVICE_NAME}
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
     revisionHistoryLimit: 10
     selector:
-      app: ${LOKI_SERVICE_NAME}
+      matchLabels:
+        app: ${LOKI_SERVICE_NAME}
+        release: ${LOKI_SERVICE_NAME}
     strategy:
       rollingUpdate:
         maxSurge: 25%
@@ -43,6 +52,8 @@ objects:
       metadata:
         labels:
           app: ${LOKI_SERVICE_NAME}
+          name: ${LOKI_SERVICE_NAME}
+          release: ${LOKI_SERVICE_NAME}
       spec:
         affinity: {}
         containers:
@@ -127,7 +138,11 @@ objects:
   kind: Secret
   metadata:
     labels:
+      name: ${LOKI_SERVICE_NAME}
       app: ${LOKI_SERVICE_NAME}
+      chart: loki-0.8.4
+      heritage: Tiller
+      release: ${LOKI_SERVICE_NAME}
     name: ${LOKI_SECRETS}
   type: Opaque
 parameters:
