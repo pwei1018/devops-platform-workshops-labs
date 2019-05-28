@@ -1,0 +1,559 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu, memory request for
+        container pwei1018-grafana; cpu, memory limit for container pwei1018-grafana'
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: pwei1018-grafana
+      openshift.io/deployment.name: pwei1018-grafana-1
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: 2019-05-27T21:32:03Z
+    generateName: pwei1018-grafana-1-
+    labels:
+      app: pwei1018-grafana
+      deployment: pwei1018-grafana-1
+      deploymentconfig: pwei1018-grafana
+    name: pwei1018-grafana-1-d2mks
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: pwei1018-grafana-1
+      uid: c3c8236d-80c6-11e9-bf26-0050568379a2
+    resourceVersion: "795268120"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/pods/pwei1018-grafana-1-d2mks
+    uid: de8f3b7f-80c6-11e9-8dc7-0050568348cc
+  spec:
+    containers:
+    - image: grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71
+      imagePullPolicy: IfNotPresent
+      name: pwei1018-grafana
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 250m
+          memory: 1Gi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1007870000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/grafana/provisioning/dashboards
+        name: pwei1018-grafana-dashboard-providers-j9uet
+        readOnly: true
+      - mountPath: /etc/grafana/provisioning/datasources/
+        name: pwei1018-grafana-datasources-z090t
+        readOnly: true
+      - mountPath: /var/lib/grafana/dashboards/
+        name: pwei1018-grafana-simple-dashboard-mpuc8
+        readOnly: true
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-v7h2l
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-5g49m
+    nodeName: ociopf-p-187.dmz
+    nodeSelector:
+      region: app
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1007870000
+      seLinuxOptions:
+        level: s0:c89,c19
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: pwei1018-grafana-dashboard-providers
+      name: pwei1018-grafana-dashboard-providers-j9uet
+    - configMap:
+        defaultMode: 420
+        name: pwei1018-grafana-datasources
+      name: pwei1018-grafana-datasources-z090t
+    - configMap:
+        defaultMode: 420
+        name: pwei1018-grafana-simple-dashboard
+      name: pwei1018-grafana-simple-dashboard-mpuc8
+    - name: default-token-v7h2l
+      secret:
+        defaultMode: 420
+        secretName: default-token-v7h2l
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2019-05-27T21:32:03Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2019-05-27T21:32:12Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2019-05-27T21:32:03Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://76fca2a27e780a272c2c360293831e5e189e222d54e80552b94fd9ed38f9fa40
+      image: sha256:6441ff99cd25bed4f3009d9d3bbd8342cd0626881301fddee457fac18b88de1d
+      imageID: docker-pullable://docker.io/grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71
+      lastState: {}
+      name: pwei1018-grafana
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2019-05-27T21:32:10Z
+    hostIP: 142.34.143.173
+    phase: Running
+    podIP: 172.51.77.111
+    qosClass: Burstable
+    startTime: 2019-05-27T21:32:03Z
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2019-05-27 21:32:12 +0000 UTC
+      openshift.io/deployer-pod.created-at: 2019-05-27 21:31:18 +0000 UTC
+      openshift.io/deployer-pod.name: pwei1018-grafana-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: pwei1018-grafana
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"pwei1018-grafana","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","selfLink":"/apis/apps.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/deploymentconfigs/pwei1018-grafana","uid":"c302de24-80c6-11e9-bf26-0050568379a2","resourceVersion":"795267025","generation":2,"creationTimestamp":"2019-05-27T21:31:17Z","labels":{"app":"pwei1018-grafana"},"annotations":{"kubectl.kubernetes.io/last-applied-configuration":"{\"apiVersion\":\"apps.openshift.io/v1\",\"kind\":\"DeploymentConfig\",\"metadata\":{\"annotations\":{\"openshift.io/generated-by\":\"OpenShiftNewApp\"},\"creationTimestamp\":\"2019-05-27T19:05:00Z\",\"generation\":17,\"labels\":{\"app\":\"pwei1018-grafana\"},\"name\":\"pwei1018-grafana\",\"namespace\":\"s4g19x-pwei1018-openshift201-may2019-dev\",\"resourceVersion\":\"795260770\",\"selfLink\":\"/apis/apps.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/deploymentconfigs/pwei1018-grafana\",\"uid\":\"53972ea4-80b2-11e9-8dc7-0050568348cc\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"app\":\"pwei1018-grafana\",\"deploymentconfig\":\"pwei1018-grafana\"},\"strategy\":{\"activeDeadlineSeconds\":21600,\"resources\":{},\"rollingParams\":{\"intervalSeconds\":1,\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\",\"timeoutSeconds\":600,\"updatePeriodSeconds\":1},\"type\":\"Rolling\"},\"template\":{\"metadata\":{\"annotations\":{\"openshift.io/generated-by\":\"OpenShiftNewApp\"},\"creationTimestamp\":null,\"labels\":{\"app\":\"pwei1018-grafana\",\"deploymentconfig\":\"pwei1018-grafana\"}},\"spec\":{\"containers\":[{\"image\":\"grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"pwei1018-grafana\",\"ports\":[{\"containerPort\":3000,\"protocol\":\"TCP\"}],\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/etc/grafana/provisioning/dashboards\",\"name\":\"pwei1018-grafana-dashboard-providers-j9uet\",\"readOnly\":true},{\"mountPath\":\"/etc/grafana/provisioning/datasources/\",\"name\":\"pwei1018-grafana-datasources-z090t\",\"readOnly\":true},{\"mountPath\":\"/var/lib/grafana/dashboards/\",\"name\":\"pwei1018-grafana-simple-dashboard-mpuc8\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"terminationGracePeriodSeconds\":30,\"volumes\":[{\"configMap\":{\"defaultMode\":420,\"name\":\"pwei1018-grafana-dashboard-providers\"},\"name\":\"pwei1018-grafana-dashboard-providers-j9uet\"},{\"configMap\":{\"defaultMode\":420,\"name\":\"pwei1018-grafana-datasources\"},\"name\":\"pwei1018-grafana-datasources-z090t\"},{\"configMap\":{\"defaultMode\":420,\"name\":\"pwei1018-grafana-simple-dashboard\"},\"name\":\"pwei1018-grafana-simple-dashboard-mpuc8\"}]}},\"test\":false,\"triggers\":[{\"type\":\"ConfigChange\"},{\"imageChangeParams\":{\"automatic\":true,\"containerNames\":[\"pwei1018-grafana\"],\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"pwei1018-grafana:6.2.0\",\"namespace\":\"s4g19x-pwei1018-openshift201-may2019-dev\"},\"lastTriggeredImage\":\"grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71\"},\"type\":\"ImageChange\"}]},\"status\":{\"availableReplicas\":1,\"conditions\":[{\"lastTransitionTime\":\"2019-05-27T21:23:58Z\",\"lastUpdateTime\":\"2019-05-27T21:23:58Z\",\"message\":\"Deployment config has minimum availability.\",\"status\":\"True\",\"type\":\"Available\"},{\"lastTransitionTime\":\"2019-05-27T21:25:47Z\",\"lastUpdateTime\":\"2019-05-27T21:25:53Z\",\"message\":\"replication controller \\\"pwei1018-grafana-16\\\" successfully rolled out\",\"reason\":\"NewReplicationControllerAvailable\",\"status\":\"True\",\"type\":\"Progressing\"}],\"details\":{\"causes\":[{\"type\":\"Manual\"}],\"message\":\"manual change\"},\"latestVersion\":16,\"observedGeneration\":17,\"readyReplicas\":1,\"replicas\":1,\"unavailableReplicas\":0,\"updatedReplicas\":1}}\n","openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["pwei1018-grafana"],"from":{"kind":"ImageStreamTag","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","name":"pwei1018-grafana:6.2.0"},"lastTriggeredImage":"grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71"}}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"pwei1018-grafana","deploymentconfig":"pwei1018-grafana"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"pwei1018-grafana","deploymentconfig":"pwei1018-grafana"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"volumes":[{"name":"pwei1018-grafana-dashboard-providers-j9uet","configMap":{"name":"pwei1018-grafana-dashboard-providers","defaultMode":420}},{"name":"pwei1018-grafana-datasources-z090t","configMap":{"name":"pwei1018-grafana-datasources","defaultMode":420}},{"name":"pwei1018-grafana-simple-dashboard-mpuc8","configMap":{"name":"pwei1018-grafana-simple-dashboard","defaultMode":420}}],"containers":[{"name":"pwei1018-grafana","image":"grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71","ports":[{"containerPort":3000,"protocol":"TCP"}],"resources":{},"volumeMounts":[{"name":"pwei1018-grafana-dashboard-providers-j9uet","readOnly":true,"mountPath":"/etc/grafana/provisioning/dashboards"},{"name":"pwei1018-grafana-datasources-z090t","readOnly":true,"mountPath":"/etc/grafana/provisioning/datasources/"},{"name":"pwei1018-grafana-simple-dashboard-mpuc8","readOnly":true,"mountPath":"/var/lib/grafana/dashboards/"}],"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":1,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"False","lastUpdateTime":"2019-05-27T21:31:17Z","lastTransitionTime":"2019-05-27T21:31:17Z","message":"Deployment config does not have minimum availability."}]}}
+    creationTimestamp: 2019-05-27T21:31:18Z
+    generation: 2
+    labels:
+      app: pwei1018-grafana
+      openshift.io/deployment-config.name: pwei1018-grafana
+    name: pwei1018-grafana-1
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: pwei1018-grafana
+      uid: c302de24-80c6-11e9-bf26-0050568379a2
+    resourceVersion: "795268236"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/replicationcontrollers/pwei1018-grafana-1
+    uid: c3c8236d-80c6-11e9-bf26-0050568379a2
+  spec:
+    replicas: 1
+    selector:
+      app: pwei1018-grafana
+      deployment: pwei1018-grafana-1
+      deploymentconfig: pwei1018-grafana
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: pwei1018-grafana
+          openshift.io/deployment.name: pwei1018-grafana-1
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: pwei1018-grafana
+          deployment: pwei1018-grafana-1
+          deploymentconfig: pwei1018-grafana
+      spec:
+        containers:
+        - image: grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71
+          imagePullPolicy: IfNotPresent
+          name: pwei1018-grafana
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/grafana/provisioning/dashboards
+            name: pwei1018-grafana-dashboard-providers-j9uet
+            readOnly: true
+          - mountPath: /etc/grafana/provisioning/datasources/
+            name: pwei1018-grafana-datasources-z090t
+            readOnly: true
+          - mountPath: /var/lib/grafana/dashboards/
+            name: pwei1018-grafana-simple-dashboard-mpuc8
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: pwei1018-grafana-dashboard-providers
+          name: pwei1018-grafana-dashboard-providers-j9uet
+        - configMap:
+            defaultMode: 420
+            name: pwei1018-grafana-datasources
+          name: pwei1018-grafana-datasources-z090t
+        - configMap:
+            defaultMode: 420
+            name: pwei1018-grafana-simple-dashboard
+          name: pwei1018-grafana-simple-dashboard-mpuc8
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"},"creationTimestamp":"2019-05-27T19:05:00Z","labels":{"app":"pwei1018-grafana"},"name":"pwei1018-grafana","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","resourceVersion":"795106260","selfLink":"/api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/services/pwei1018-grafana","uid":"53a9b968-80b2-11e9-8dc7-0050568348cc"},"spec":{"clusterIP":"172.50.10.106","ports":[{"name":"3000-tcp","port":3000,"protocol":"TCP","targetPort":3000}],"selector":{"app":"pwei1018-grafana","deploymentconfig":"pwei1018-grafana"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2019-05-27T21:31:17Z
+    labels:
+      app: pwei1018-grafana
+    name: pwei1018-grafana
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795266983"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/services/pwei1018-grafana
+    uid: c2f5d1a4-80c6-11e9-bf26-0050568379a2
+  spec:
+    clusterIP: 172.50.10.106
+    ports:
+    - name: 3000-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: pwei1018-grafana
+      deploymentconfig: pwei1018-grafana
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","metadata":{"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"},"creationTimestamp":"2019-05-27T19:05:00Z","generation":17,"labels":{"app":"pwei1018-grafana"},"name":"pwei1018-grafana","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","resourceVersion":"795260770","selfLink":"/apis/apps.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/deploymentconfigs/pwei1018-grafana","uid":"53972ea4-80b2-11e9-8dc7-0050568348cc"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"app":"pwei1018-grafana","deploymentconfig":"pwei1018-grafana"},"strategy":{"activeDeadlineSeconds":21600,"resources":{},"rollingParams":{"intervalSeconds":1,"maxSurge":"25%","maxUnavailable":"25%","timeoutSeconds":600,"updatePeriodSeconds":1},"type":"Rolling"},"template":{"metadata":{"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"},"creationTimestamp":null,"labels":{"app":"pwei1018-grafana","deploymentconfig":"pwei1018-grafana"}},"spec":{"containers":[{"image":"grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71","imagePullPolicy":"IfNotPresent","name":"pwei1018-grafana","ports":[{"containerPort":3000,"protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/etc/grafana/provisioning/dashboards","name":"pwei1018-grafana-dashboard-providers-j9uet","readOnly":true},{"mountPath":"/etc/grafana/provisioning/datasources/","name":"pwei1018-grafana-datasources-z090t","readOnly":true},{"mountPath":"/var/lib/grafana/dashboards/","name":"pwei1018-grafana-simple-dashboard-mpuc8","readOnly":true}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"configMap":{"defaultMode":420,"name":"pwei1018-grafana-dashboard-providers"},"name":"pwei1018-grafana-dashboard-providers-j9uet"},{"configMap":{"defaultMode":420,"name":"pwei1018-grafana-datasources"},"name":"pwei1018-grafana-datasources-z090t"},{"configMap":{"defaultMode":420,"name":"pwei1018-grafana-simple-dashboard"},"name":"pwei1018-grafana-simple-dashboard-mpuc8"}]}},"test":false,"triggers":[{"type":"ConfigChange"},{"imageChangeParams":{"automatic":true,"containerNames":["pwei1018-grafana"],"from":{"kind":"ImageStreamTag","name":"pwei1018-grafana:6.2.0","namespace":"s4g19x-pwei1018-openshift201-may2019-dev"},"lastTriggeredImage":"grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71"},"type":"ImageChange"}]},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2019-05-27T21:23:58Z","lastUpdateTime":"2019-05-27T21:23:58Z","message":"Deployment config has minimum availability.","status":"True","type":"Available"},{"lastTransitionTime":"2019-05-27T21:25:47Z","lastUpdateTime":"2019-05-27T21:25:53Z","message":"replication controller \"pwei1018-grafana-16\" successfully rolled out","reason":"NewReplicationControllerAvailable","status":"True","type":"Progressing"}],"details":{"causes":[{"type":"Manual"}],"message":"manual change"},"latestVersion":16,"observedGeneration":17,"readyReplicas":1,"replicas":1,"unavailableReplicas":0,"updatedReplicas":1}}
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2019-05-27T21:31:17Z
+    generation: 2
+    labels:
+      app: pwei1018-grafana
+    name: pwei1018-grafana
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795268240"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/deploymentconfigs/pwei1018-grafana
+    uid: c302de24-80c6-11e9-bf26-0050568379a2
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: pwei1018-grafana
+      deploymentconfig: pwei1018-grafana
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: pwei1018-grafana
+          deploymentconfig: pwei1018-grafana
+      spec:
+        containers:
+        - image: grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71
+          imagePullPolicy: IfNotPresent
+          name: pwei1018-grafana
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/grafana/provisioning/dashboards
+            name: pwei1018-grafana-dashboard-providers-j9uet
+            readOnly: true
+          - mountPath: /etc/grafana/provisioning/datasources/
+            name: pwei1018-grafana-datasources-z090t
+            readOnly: true
+          - mountPath: /var/lib/grafana/dashboards/
+            name: pwei1018-grafana-simple-dashboard-mpuc8
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: pwei1018-grafana-dashboard-providers
+          name: pwei1018-grafana-dashboard-providers-j9uet
+        - configMap:
+            defaultMode: 420
+            name: pwei1018-grafana-datasources
+          name: pwei1018-grafana-datasources-z090t
+        - configMap:
+            defaultMode: 420
+            name: pwei1018-grafana-simple-dashboard
+          name: pwei1018-grafana-simple-dashboard-mpuc8
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - pwei1018-grafana
+        from:
+          kind: ImageStreamTag
+          name: pwei1018-grafana:6.2.0
+          namespace: s4g19x-pwei1018-openshift201-may2019-dev
+        lastTriggeredImage: grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2019-05-27T21:32:12Z
+      lastUpdateTime: 2019-05-27T21:32:12Z
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2019-05-27T21:32:18Z
+      lastUpdateTime: 2019-05-27T21:32:18Z
+      message: replication controller "pwei1018-grafana-1" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"image.openshift.io/v1","kind":"ImageStream","metadata":{"annotations":{"openshift.io/generated-by":"OpenShiftNewApp","openshift.io/image.dockerRepositoryCheck":"2019-05-27T19:05:01Z"},"creationTimestamp":"2019-05-27T19:05:00Z","generation":2,"labels":{"app":"pwei1018-grafana"},"name":"pwei1018-grafana","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","resourceVersion":"795106269","selfLink":"/apis/image.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/imagestreams/pwei1018-grafana","uid":"538a045f-80b2-11e9-8dc7-0050568348cc"},"spec":{"lookupPolicy":{"local":false},"tags":[{"annotations":{"openshift.io/imported-from":"grafana/grafana:6.2.0"},"from":{"kind":"DockerImage","name":"grafana/grafana:6.2.0"},"generation":2,"importPolicy":{},"name":"6.2.0","referencePolicy":{"type":"Source"}}]},"status":{"dockerImageRepository":"docker-registry.default.svc:5000/s4g19x-pwei1018-openshift201-may2019-dev/pwei1018-grafana","tags":[{"items":[{"created":"2019-05-27T19:05:01Z","dockerImageReference":"grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71","generation":2,"image":"sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71"}],"tag":"6.2.0"}]}}
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/image.dockerRepositoryCheck: 2019-05-27T21:31:18Z
+    creationTimestamp: 2019-05-27T21:31:17Z
+    generation: 2
+    labels:
+      app: pwei1018-grafana
+    name: pwei1018-grafana
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795267022"
+    selfLink: /apis/image.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/imagestreams/pwei1018-grafana
+    uid: c30d3d5f-80c6-11e9-bf26-0050568379a2
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: grafana/grafana:6.2.0
+      from:
+        kind: DockerImage
+        name: grafana/grafana:6.2.0
+      generation: 2
+      importPolicy: {}
+      name: 6.2.0
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: docker-registry.default.svc:5000/s4g19x-pwei1018-openshift201-may2019-dev/pwei1018-grafana
+    tags:
+    - items:
+      - created: 2019-05-27T21:31:18Z
+        dockerImageReference: grafana/grafana@sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71
+        generation: 2
+        image: sha256:ced97851c89ca7d1e67a43aabbe05452e144a9bc9ffc63d2220dc2f37fdc1a71
+      tag: 6.2.0
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"route.openshift.io/v1","kind":"Route","metadata":{"annotations":{"openshift.io/host.generated":"true"},"creationTimestamp":"2019-05-27T19:05:55Z","labels":{"app":"pwei1018-grafana"},"name":"pwei1018-grafana","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","resourceVersion":"795107167","selfLink":"/apis/route.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/routes/pwei1018-grafana","uid":"741bd2bc-80b2-11e9-8dc7-0050568348cc"},"spec":{"host":"pwei1018-grafana-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca","port":{"targetPort":"3000-tcp"},"to":{"kind":"Service","name":"pwei1018-grafana","weight":100},"wildcardPolicy":"None"},"status":{"ingress":[{"conditions":[{"lastTransitionTime":"2019-05-27T19:05:55Z","status":"True","type":"Admitted"}],"host":"pwei1018-grafana-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca","routerName":"router","wildcardPolicy":"None"}]}}
+      openshift.io/host.generated: "true"
+    creationTimestamp: 2019-05-27T21:31:17Z
+    labels:
+      app: pwei1018-grafana
+    name: pwei1018-grafana
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795266996"
+    selfLink: /apis/route.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/routes/pwei1018-grafana
+    uid: c316d9dd-80c6-11e9-bf26-0050568379a2
+  spec:
+    host: pwei1018-grafana-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca
+    port:
+      targetPort: 3000-tcp
+    to:
+      kind: Service
+      name: pwei1018-grafana
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2019-05-27T21:31:17Z
+        status: "True"
+        type: Admitted
+      host: pwei1018-grafana-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca
+      routerName: router
+      wildcardPolicy: None
+- apiVersion: v1
+  data:
+    dashboards.yaml: "apiVersion: 1\r\n\r\nproviders:\r\n  # <string> provider name\r\n-
+      name: 'default'\r\n  # <int> org id. will default to orgId 1 if not specified\r\n
+      \ orgId: 1\r\n  # <string, required> name of the dashboard folder. Required\r\n
+      \ folder: ''\r\n  # <string> folder UID. will be automatically generated if
+      not specified\r\n  folderUid: ''\r\n  # <string, required> provider type. Required\r\n
+      \ type: file\r\n  # <bool> disable dashboard deletion\r\n  disableDeletion:
+      false\r\n  # <bool> enable dashboard editing\r\n  editable: true\r\n  # <int>
+      how often Grafana will scan for changed dashboards\r\n  updateIntervalSeconds:
+      10  \r\n  options:\r\n    # <string, required> path to dashboard files on disk.
+      Required\r\n    path: /var/lib/grafana/dashboards"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"dashboards.yaml":"apiVersion: 1\r\n\r\nproviders:\r\n  # \u003cstring\u003e provider name\r\n- name: 'default'\r\n  # \u003cint\u003e org id. will default to orgId 1 if not specified\r\n  orgId: 1\r\n  # \u003cstring, required\u003e name of the dashboard folder. Required\r\n  folder: ''\r\n  # \u003cstring\u003e folder UID. will be automatically generated if not specified\r\n  folderUid: ''\r\n  # \u003cstring, required\u003e provider type. Required\r\n  type: file\r\n  # \u003cbool\u003e disable dashboard deletion\r\n  disableDeletion: false\r\n  # \u003cbool\u003e enable dashboard editing\r\n  editable: true\r\n  # \u003cint\u003e how often Grafana will scan for changed dashboards\r\n  updateIntervalSeconds: 10  \r\n  options:\r\n    # \u003cstring, required\u003e path to dashboard files on disk. Required\r\n    path: /var/lib/grafana/dashboards"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2019-05-27T20:19:52Z","labels":{"app":"pwei1018-grafana"},"name":"pwei1018-grafana-dashboard-providers","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","resourceVersion":"795231908","selfLink":"/api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/configmaps/pwei1018-grafana-dashboard-providers","uid":"c8ad6f1d-80bc-11e9-bf26-0050568379a2"}}
+    creationTimestamp: 2019-05-27T21:31:17Z
+    labels:
+      app: pwei1018-grafana
+    name: pwei1018-grafana-dashboard-providers
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795266997"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/configmaps/pwei1018-grafana-dashboard-providers
+    uid: c3243e62-80c6-11e9-bf26-0050568379a2
+- apiVersion: v1
+  data:
+    datasources.yml: "# config file version\r\napiVersion: 1\r\n\r\ndatasources:\r\n-
+      name: Prometheus\r\n  type: prometheus\r\n  access: proxy\r\n  orgId: 1\r\n
+      \ url: http://prometheus-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca\r\n
+      \ isDefault: true\r\n  version: 1\r\n  editable: true\r\n- name: Loki\r\n  type:
+      loki\r\n  orgId: 1\r\n  access: proxy\r\n  url: http://loki-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca/\r\n
+      \ jsonData:\r\n    maxLines: 1000"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"datasources.yml":"# config file version\r\napiVersion: 1\r\n\r\ndatasources:\r\n- name: Prometheus\r\n  type: prometheus\r\n  access: proxy\r\n  orgId: 1\r\n  url: http://prometheus-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca\r\n  isDefault: true\r\n  version: 1\r\n  editable: true\r\n- name: Loki\r\n  type: loki\r\n  orgId: 1\r\n  access: proxy\r\n  url: http://loki-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca/\r\n  jsonData:\r\n    maxLines: 1000"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2019-05-27T20:23:32Z","labels":{"app":"pwei1018-grafana"},"name":"pwei1018-grafana-datasources","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","resourceVersion":"795257471","selfLink":"/api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/configmaps/pwei1018-grafana-datasources","uid":"4c11744f-80bd-11e9-bf26-0050568379a2"}}
+    creationTimestamp: 2019-05-27T21:31:17Z
+    labels:
+      app: pwei1018-grafana
+    name: pwei1018-grafana-datasources
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795267000"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/configmaps/pwei1018-grafana-datasources
+    uid: c32e7d1e-80c6-11e9-bf26-0050568379a2
+- apiVersion: v1
+  data:
+    simple_dashboard.json: "{\r\n  \"annotations\": {\r\n    \"list\": [\r\n      {\r\n
+      \       \"builtIn\": 1,\r\n        \"datasource\": \"-- Grafana --\",\r\n        \"enable\":
+      true,\r\n        \"hide\": true,\r\n        \"iconColor\": \"rgba(0, 211, 255,
+      1)\",\r\n        \"name\": \"Annotations & Alerts\",\r\n        \"type\": \"dashboard\"\r\n
+      \     }\r\n    ]\r\n  },\r\n  \"editable\": true,\r\n  \"gnetId\": null,\r\n
+      \ \"graphTooltip\": 0,\r\n  \"links\": [],\r\n  \"panels\": [\r\n    {\r\n      \"cacheTimeout\":
+      null,\r\n      \"colorBackground\": false,\r\n      \"colorValue\": false,\r\n
+      \     \"colors\": [\r\n        \"#299c46\",\r\n        \"rgba(237, 129, 40,
+      0.89)\",\r\n        \"#d44a3a\"\r\n      ],\r\n      \"datasource\": \"Prometheus\",\r\n
+      \     \"format\": \"none\",\r\n      \"gauge\": {\r\n        \"maxValue\": 100,\r\n
+      \       \"minValue\": 0,\r\n        \"show\": false,\r\n        \"thresholdLabels\":
+      false,\r\n        \"thresholdMarkers\": true\r\n      },\r\n      \"gridPos\":
+      {\r\n        \"h\": 9,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\":
+      0\r\n      },\r\n      \"id\": 2,\r\n      \"interval\": null,\r\n      \"links\":
+      [],\r\n      \"mappingType\": 1,\r\n      \"mappingTypes\": [\r\n        {\r\n
+      \         \"name\": \"value to text\",\r\n          \"value\": 1\r\n        },\r\n
+      \       {\r\n          \"name\": \"range to text\",\r\n          \"value\":
+      2\r\n        }\r\n      ],\r\n      \"maxDataPoints\": 100,\r\n      \"nullPointMode\":
+      \"connected\",\r\n      \"nullText\": null,\r\n      \"options\": {},\r\n      \"postfix\":
+      \"\",\r\n      \"postfixFontSize\": \"50%\",\r\n      \"prefix\": \"\",\r\n
+      \     \"prefixFontSize\": \"50%\",\r\n      \"rangeMaps\": [\r\n        {\r\n
+      \         \"from\": \"null\",\r\n          \"text\": \"N/A\",\r\n          \"to\":
+      \"null\"\r\n        }\r\n      ],\r\n      \"sparkline\": {\r\n        \"fillColor\":
+      \"rgba(31, 118, 189, 0.18)\",\r\n        \"full\": false,\r\n        \"lineColor\":
+      \"rgb(31, 120, 193)\",\r\n        \"show\": false\r\n      },\r\n      \"tableColumn\":
+      \"\",\r\n      \"targets\": [\r\n        {\r\n          \"expr\": \"sum(up)\",\r\n
+      \         \"format\": \"time_series\",\r\n          \"intervalFactor\": 1,\r\n
+      \         \"refId\": \"A\"\r\n        }\r\n      ],\r\n      \"thresholds\":
+      \"\",\r\n      \"timeFrom\": null,\r\n      \"timeShift\": null,\r\n      \"title\":
+      \"Total Pod Watched(Prometheus)\",\r\n      \"type\": \"singlestat\",\r\n      \"valueFontSize\":
+      \"80%\",\r\n      \"valueMaps\": [\r\n        {\r\n          \"op\": \"=\",\r\n
+      \         \"text\": \"N/A\",\r\n          \"value\": \"null\"\r\n        }\r\n
+      \     ],\r\n      \"valueName\": \"current\"\r\n    }\r\n  ],\r\n  \"schemaVersion\":
+      18,\r\n  \"style\": \"dark\",\r\n  \"tags\": [],\r\n  \"templating\": {\r\n
+      \   \"list\": []\r\n  },\r\n  \"time\": {\r\n    \"from\": \"now-6h\",\r\n    \"to\":
+      \"now\"\r\n  },\r\n  \"timepicker\": {\r\n    \"refresh_intervals\": [\r\n      \"5s\",\r\n
+      \     \"10s\",\r\n      \"30s\",\r\n      \"1m\",\r\n      \"5m\",\r\n      \"15m\",\r\n
+      \     \"30m\",\r\n      \"1h\",\r\n      \"2h\",\r\n      \"1d\"\r\n    ],\r\n
+      \   \"time_options\": [\r\n      \"5m\",\r\n      \"15m\",\r\n      \"1h\",\r\n
+      \     \"6h\",\r\n      \"12h\",\r\n      \"24h\",\r\n      \"2d\",\r\n      \"7d\",\r\n
+      \     \"30d\"\r\n    ]\r\n  },\r\n  \"timezone\": \"\",\r\n  \"title\": \"Simple
+      dashboard\",\r\n  \"uid\": \"VwUPVgMZk\",\r\n  \"version\": 1\r\n}"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"simple_dashboard.json":"{\r\n  \"annotations\": {\r\n    \"list\": [\r\n      {\r\n        \"builtIn\": 1,\r\n        \"datasource\": \"-- Grafana --\",\r\n        \"enable\": true,\r\n        \"hide\": true,\r\n        \"iconColor\": \"rgba(0, 211, 255, 1)\",\r\n        \"name\": \"Annotations \u0026 Alerts\",\r\n        \"type\": \"dashboard\"\r\n      }\r\n    ]\r\n  },\r\n  \"editable\": true,\r\n  \"gnetId\": null,\r\n  \"graphTooltip\": 0,\r\n  \"links\": [],\r\n  \"panels\": [\r\n    {\r\n      \"cacheTimeout\": null,\r\n      \"colorBackground\": false,\r\n      \"colorValue\": false,\r\n      \"colors\": [\r\n        \"#299c46\",\r\n        \"rgba(237, 129, 40, 0.89)\",\r\n        \"#d44a3a\"\r\n      ],\r\n      \"datasource\": \"Prometheus\",\r\n      \"format\": \"none\",\r\n      \"gauge\": {\r\n        \"maxValue\": 100,\r\n        \"minValue\": 0,\r\n        \"show\": false,\r\n        \"thresholdLabels\": false,\r\n        \"thresholdMarkers\": true\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 9,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 0\r\n      },\r\n      \"id\": 2,\r\n      \"interval\": null,\r\n      \"links\": [],\r\n      \"mappingType\": 1,\r\n      \"mappingTypes\": [\r\n        {\r\n          \"name\": \"value to text\",\r\n          \"value\": 1\r\n        },\r\n        {\r\n          \"name\": \"range to text\",\r\n          \"value\": 2\r\n        }\r\n      ],\r\n      \"maxDataPoints\": 100,\r\n      \"nullPointMode\": \"connected\",\r\n      \"nullText\": null,\r\n      \"options\": {},\r\n      \"postfix\": \"\",\r\n      \"postfixFontSize\": \"50%\",\r\n      \"prefix\": \"\",\r\n      \"prefixFontSize\": \"50%\",\r\n      \"rangeMaps\": [\r\n        {\r\n          \"from\": \"null\",\r\n          \"text\": \"N/A\",\r\n          \"to\": \"null\"\r\n        }\r\n      ],\r\n      \"sparkline\": {\r\n        \"fillColor\": \"rgba(31, 118, 189, 0.18)\",\r\n        \"full\": false,\r\n        \"lineColor\": \"rgb(31, 120, 193)\",\r\n        \"show\": false\r\n      },\r\n      \"tableColumn\": \"\",\r\n      \"targets\": [\r\n        {\r\n          \"expr\": \"sum(up)\",\r\n          \"format\": \"time_series\",\r\n          \"intervalFactor\": 1,\r\n          \"refId\": \"A\"\r\n        }\r\n      ],\r\n      \"thresholds\": \"\",\r\n      \"timeFrom\": null,\r\n      \"timeShift\": null,\r\n      \"title\": \"Total Pod Watched(Prometheus)\",\r\n      \"type\": \"singlestat\",\r\n      \"valueFontSize\": \"80%\",\r\n      \"valueMaps\": [\r\n        {\r\n          \"op\": \"=\",\r\n          \"text\": \"N/A\",\r\n          \"value\": \"null\"\r\n        }\r\n      ],\r\n      \"valueName\": \"current\"\r\n    }\r\n  ],\r\n  \"schemaVersion\": 18,\r\n  \"style\": \"dark\",\r\n  \"tags\": [],\r\n  \"templating\": {\r\n    \"list\": []\r\n  },\r\n  \"time\": {\r\n    \"from\": \"now-6h\",\r\n    \"to\": \"now\"\r\n  },\r\n  \"timepicker\": {\r\n    \"refresh_intervals\": [\r\n      \"5s\",\r\n      \"10s\",\r\n      \"30s\",\r\n      \"1m\",\r\n      \"5m\",\r\n      \"15m\",\r\n      \"30m\",\r\n      \"1h\",\r\n      \"2h\",\r\n      \"1d\"\r\n    ],\r\n    \"time_options\": [\r\n      \"5m\",\r\n      \"15m\",\r\n      \"1h\",\r\n      \"6h\",\r\n      \"12h\",\r\n      \"24h\",\r\n      \"2d\",\r\n      \"7d\",\r\n      \"30d\"\r\n    ]\r\n  },\r\n  \"timezone\": \"\",\r\n  \"title\": \"Simple dashboard\",\r\n  \"uid\": \"VwUPVgMZk\",\r\n  \"version\": 1\r\n}"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2019-05-27T20:26:50Z","labels":{"app":"pwei1018-grafana"},"name":"pwei1018-grafana-simple-dashboard","namespace":"s4g19x-pwei1018-openshift201-may2019-dev","resourceVersion":"795232729","selfLink":"/api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/configmaps/pwei1018-grafana-simple-dashboard","uid":"c24350a7-80bd-11e9-bf26-0050568379a2"}}
+    creationTimestamp: 2019-05-27T21:31:17Z
+    labels:
+      app: pwei1018-grafana
+    name: pwei1018-grafana-simple-dashboard
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795267002"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/configmaps/pwei1018-grafana-simple-dashboard
+    uid: c33909a1-80c6-11e9-bf26-0050568379a2
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

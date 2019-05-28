@@ -1,0 +1,451 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      checksum/config: 26fb0f26f8d85715186a8e9f1f7c47d7f5326733b19be127d30360d81a285c76
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu, memory request for
+        container loki; cpu, memory limit for container loki'
+      openshift.io/scc: restricted
+      prometheus.io/port: http-metrics
+      prometheus.io/scrape: "true"
+    creationTimestamp: 2019-05-27T19:12:59Z
+    generateName: pwei1018-loki-b5c5bbc68-
+    labels:
+      app: loki
+      name: loki
+      pod-template-hash: "617166724"
+      release: pwei1018-loki
+    name: pwei1018-loki-b5c5bbc68-94t2v
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: pwei1018-loki-b5c5bbc68
+      uid: 714259ab-80b3-11e9-8dc7-0050568348cc
+    resourceVersion: "795116451"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/pods/pwei1018-loki-b5c5bbc68-94t2v
+    uid: 714aa64d-80b3-11e9-8dc7-0050568348cc
+  spec:
+    affinity: {}
+    containers:
+    - args:
+      - -config.file=/etc/loki/loki.yaml
+      env:
+      - name: JAEGER_AGENT_HOST
+      image: grafana/loki:latest
+      imagePullPolicy: Always
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /ready
+          port: http-metrics
+          scheme: HTTP
+        initialDelaySeconds: 45
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: loki
+      ports:
+      - containerPort: 3100
+        name: http-metrics
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /ready
+          port: http-metrics
+          scheme: HTTP
+        initialDelaySeconds: 45
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 250m
+          memory: 1Gi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        readOnlyRootFilesystem: true
+        runAsUser: 1007870000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/loki
+        name: config
+      - mountPath: /data
+        name: storage
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-v7h2l
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-5g49m
+    nodeName: ociopf-p-191.dmz
+    nodeSelector:
+      region: app
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1007870000
+      seLinuxOptions:
+        level: s0:c89,c19
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: config
+      secret:
+        defaultMode: 420
+        secretName: pwei1018-loki
+    - emptyDir: {}
+      name: storage
+    - name: default-token-v7h2l
+      secret:
+        defaultMode: 420
+        secretName: default-token-v7h2l
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2019-05-27T19:13:00Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2019-05-27T19:14:18Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2019-05-27T19:13:00Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://179e96443e061b10c7a4019c81288e4a59e2a63de97d5320d3acf2ffbfdc5117
+      image: docker.io/grafana/loki:latest
+      imageID: docker-pullable://docker.io/grafana/loki@sha256:8ef3479c3f792c0534d6399ebb34280d1d809ccfeec3c47d9502a1f5b65d4991
+      lastState: {}
+      name: loki
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2019-05-27T19:13:10Z
+    hostIP: 142.34.143.177
+    phase: Running
+    podIP: 172.51.112.65
+    qosClass: Burstable
+    startTime: 2019-05-27T19:13:00Z
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"loki","chart":"loki-0.8.4","heritage":"Tiller","release":"pwei1018-loki"},"name":"pwei1018-loki","namespace":"s4g19x-pwei1018-openshift201-may2019-dev"},"spec":{"ports":[{"name":"http-metrics","port":3100,"protocol":"TCP","targetPort":"http-metrics"}],"selector":{"app":"loki","release":"pwei1018-loki"},"type":"ClusterIP"}}
+    creationTimestamp: 2019-05-27T19:12:59Z
+    labels:
+      app: loki
+      chart: loki-0.8.4
+      heritage: Tiller
+      release: pwei1018-loki
+    name: pwei1018-loki
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795114809"
+    selfLink: /api/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/services/pwei1018-loki
+    uid: 7121e01f-80b3-11e9-8dc7-0050568348cc
+  spec:
+    clusterIP: 172.50.105.178
+    ports:
+    - name: http-metrics
+      port: 3100
+      protocol: TCP
+      targetPort: http-metrics
+    selector:
+      app: loki
+      release: pwei1018-loki
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"loki","chart":"loki-0.8.4","heritage":"Tiller","release":"pwei1018-loki"},"name":"pwei1018-loki","namespace":"s4g19x-pwei1018-openshift201-may2019-dev"},"spec":{"minReadySeconds":0,"replicas":1,"selector":{"matchLabels":{"app":"loki","release":"pwei1018-loki"}},"strategy":{"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"checksum/config":"26fb0f26f8d85715186a8e9f1f7c47d7f5326733b19be127d30360d81a285c76","prometheus.io/port":"http-metrics","prometheus.io/scrape":"true"},"labels":{"app":"loki","name":"loki","release":"pwei1018-loki"}},"spec":{"affinity":{},"containers":[{"args":["-config.file=/etc/loki/loki.yaml"],"env":[{"name":"JAEGER_AGENT_HOST","value":""}],"image":"grafana/loki:latest","imagePullPolicy":"Always","livenessProbe":{"httpGet":{"path":"/ready","port":"http-metrics"},"initialDelaySeconds":45},"name":"loki","ports":[{"containerPort":3100,"name":"http-metrics","protocol":"TCP"}],"readinessProbe":{"httpGet":{"path":"/ready","port":"http-metrics"},"initialDelaySeconds":45},"resources":{},"securityContext":{"readOnlyRootFilesystem":true},"volumeMounts":[{"mountPath":"/etc/loki","name":"config"},{"mountPath":"/data","name":"storage","subPath":null}]}],"nodeSelector":{},"serviceAccountName":"default","terminationGracePeriodSeconds":30,"tolerations":[],"volumes":[{"name":"config","secret":{"secretName":"pwei1018-loki"}},{"emptyDir":{},"name":"storage"}]}}}}
+    creationTimestamp: 2019-05-27T19:12:59Z
+    generation: 1
+    labels:
+      app: loki
+      chart: loki-0.8.4
+      heritage: Tiller
+      release: pwei1018-loki
+    name: pwei1018-loki
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795116455"
+    selfLink: /apis/apps/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/deployments/pwei1018-loki
+    uid: 713dea93-80b3-11e9-8dc7-0050568348cc
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: loki
+        release: pwei1018-loki
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          checksum/config: 26fb0f26f8d85715186a8e9f1f7c47d7f5326733b19be127d30360d81a285c76
+          prometheus.io/port: http-metrics
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app: loki
+          name: loki
+          release: pwei1018-loki
+      spec:
+        affinity: {}
+        containers:
+        - args:
+          - -config.file=/etc/loki/loki.yaml
+          env:
+          - name: JAEGER_AGENT_HOST
+          image: grafana/loki:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: loki
+          ports:
+          - containerPort: 3100
+            name: http-metrics
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/loki
+            name: config
+          - mountPath: /data
+            name: storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: config
+          secret:
+            defaultMode: 420
+            secretName: pwei1018-loki
+        - emptyDir: {}
+          name: storage
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2019-05-27T19:14:19Z
+      lastUpdateTime: 2019-05-27T19:14:19Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2019-05-27T19:12:59Z
+      lastUpdateTime: 2019-05-27T19:14:19Z
+      message: ReplicaSet "pwei1018-loki-b5c5bbc68" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: 2019-05-27T19:12:59Z
+    generation: 1
+    labels:
+      app: loki
+      name: loki
+      pod-template-hash: "617166724"
+      release: pwei1018-loki
+    name: pwei1018-loki-b5c5bbc68
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: pwei1018-loki
+      uid: 713dea93-80b3-11e9-8dc7-0050568348cc
+    resourceVersion: "795116454"
+    selfLink: /apis/apps/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/replicasets/pwei1018-loki-b5c5bbc68
+    uid: 714259ab-80b3-11e9-8dc7-0050568348cc
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: loki
+        pod-template-hash: "617166724"
+        release: pwei1018-loki
+    template:
+      metadata:
+        annotations:
+          checksum/config: 26fb0f26f8d85715186a8e9f1f7c47d7f5326733b19be127d30360d81a285c76
+          prometheus.io/port: http-metrics
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app: loki
+          name: loki
+          pod-template-hash: "617166724"
+          release: pwei1018-loki
+      spec:
+        affinity: {}
+        containers:
+        - args:
+          - -config.file=/etc/loki/loki.yaml
+          env:
+          - name: JAEGER_AGENT_HOST
+          image: grafana/loki:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: loki
+          ports:
+          - containerPort: 3100
+            name: http-metrics
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/loki
+            name: config
+          - mountPath: /data
+            name: storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: config
+          secret:
+            defaultMode: 420
+            secretName: pwei1018-loki
+        - emptyDir: {}
+          name: storage
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: 2019-05-27T19:17:45Z
+    labels:
+      app: loki
+    name: loki
+    namespace: s4g19x-pwei1018-openshift201-may2019-dev
+    resourceVersion: "795120163"
+    selfLink: /apis/route.openshift.io/v1/namespaces/s4g19x-pwei1018-openshift201-may2019-dev/routes/loki
+    uid: 1b84ee3c-80b4-11e9-8dc7-0050568348cc
+  spec:
+    host: loki-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca
+    port:
+      targetPort: http-metrics
+    to:
+      kind: Service
+      name: pwei1018-loki
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2019-05-27T19:17:45Z
+        status: "True"
+        type: Admitted
+      host: loki-s4g19x-pwei1018-openshift201-may2019-dev.pathfinder.gov.bc.ca
+      routerName: router
+      wildcardPolicy: None
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
