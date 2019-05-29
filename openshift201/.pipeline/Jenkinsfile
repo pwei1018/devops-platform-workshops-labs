@@ -12,7 +12,7 @@ def GRAFANA_SERVICE  = "pwei1018-grafana"
 
 //Pipeline
 podTemplate(
-    label: pod_label,
+    label: 'test-python',
     name: 'jenkins-slave-python',
     serviceAccount: 'jenkins',
     cloud: 'openshift',
