@@ -8,9 +8,9 @@ message: |-
 metadata:
   annotations:
     description: |-
-      Grafana Template for use in OpenShift 201 lab without persistent storage. 
+      Grafana Template for use in OpenShift 201 lab without persistent storage.
 
-      WARNING: Any configuration stored will be lost upon pod destruction. ConfigMaps should be used for codified configuration. 
+      WARNING: Any configuration stored will be lost upon pod destruction. ConfigMaps should be used for codified configuration.
     iconClass: icon-other-unknown
     openshift.io/display-name: grafana-openshift201
     openshift.io/documentation-url: https://github.com/bcdevops/devops-platform-workshops
@@ -19,7 +19,7 @@ metadata:
     openshift.io/support-url: https://github.com/bcdevops/
     tags: monitoring,grafana
   name: grafana-template
-objects: 
+objects:
 - apiVersion: v1
   kind: Service
   metadata:
@@ -75,6 +75,26 @@ objects:
         - image: grafana/grafana:v6.2.0
           imagePullPolicy: IfNotPresent
           name: ${GRAFANA_SERVICE_NAME}
+          env:
+            - name: GF_DATABASE_TYPE
+              value: postgres
+            - name: GF_DATABASE_HOST
+              value: ${PATRONI_SERVICE}
+            - name: GF_DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: app-db-name
+                  name: ${PATRONI_SECRET}
+            - name: GF_DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  key: app-db-username
+                  name: ${PATRONI_SECRET}
+            - name: GF_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: app-db-password
+                  name: ${PATRONI_SECRET}
           ports:
           - containerPort: 3000
             protocol: TCP
@@ -368,3 +388,13 @@ parameters:
   name: ROUTE_SUBDOMAIN
   required: true
   value: pathfinder.gov.bc.ca
+- description: Default route subdomain
+  displayName: Route subdomain
+  name: PATRONI_SERVICE
+  required: true
+  value: pwei1018-patroni-master
+- description: Default route subdomain
+  displayName: Route subdomain
+  name: PATRONI_SECRET
+  required: true
+  value: pwei1018-patroni

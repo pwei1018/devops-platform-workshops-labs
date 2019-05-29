@@ -15,7 +15,7 @@ labels:
   phase: deploy
   app.kubernetes.io/instance: ${NAME}${SUFFIX}
   app.kubernetes.io/component: database
-  app.kubernetes.io/name: patroni  
+  app.kubernetes.io/name: patroni
   app.kubernetes.io/managed-by: template
   app.kubernetes.io/version: "10"
 objects:
@@ -118,7 +118,7 @@ objects:
                 matchExpressions:
                 - key: statefulset
                   operator: In
-                  values: 
+                  values:
                   - ${NAME}${SUFFIX}
               topologyKey: "kubernetes.io/hostname"
         containers:
@@ -345,7 +345,7 @@ parameters:
 - description: The size of the persistent volume to create.
   displayName: Persistent Volume Size
   name: PVC_SIZE
-  value: 1Gi
+  value: 1.2Gi
 - name: STORAGE_CLASS
   value: gluster-block
 - name: IMAGE_REGISTRY
