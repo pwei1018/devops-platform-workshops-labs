@@ -27,10 +27,7 @@ podTemplate(
         resourceLimitMemory: '4Gi',
         workingDir: '/tmp',
         command: '',
-        args: '${computer.jnlpmac} ${computer.name}',
-        envVars: [
-            secretEnvVar(key: 'DATABASE_TEST_URL', secretName: 'apitest-secrets', secretKey: 'DATABASE_TEST_URL')
-        ]
+        args: '${computer.jnlpmac} ${computer.name}'
       )
     ]
   ){
