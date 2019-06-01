@@ -9,6 +9,12 @@ def LOKI_SERVICE  = "pwei1018-loki"
 def PROMETHEUS_SERVICE  = "pwei1018-prometheus"
 def GRAFANA_SERVICE  = "pwei1018-grafana"
 
+
+node {
+    stage ('pytest'){
+        sh "python --version"
+    }
+}
 def mylabel = 'test-python' + UUID.randomUUID().toString()
 
 //Pipeline
@@ -37,7 +43,7 @@ podTemplate(
                 checkout scm
             }
         }
-\
+
         stage ('pytest'){
             sh "python --version"
         }
