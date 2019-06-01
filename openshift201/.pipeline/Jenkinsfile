@@ -10,7 +10,7 @@ def PROMETHEUS_SERVICE  = "pwei1018-prometheus"
 def GRAFANA_SERVICE  = "pwei1018-grafana"
 
 
-node {
+node("python") {
     stage ('pytest'){
         sh "python --version"
     }
@@ -18,7 +18,7 @@ node {
 def mylabel = 'test-python' + UUID.randomUUID().toString()
 
 //Pipeline
-podTemplate(
+/*podTemplate(
     label: mylabel,
     name: 'jenkins-slave-python',
     serviceAccount: 'jenkins',
