@@ -20,9 +20,9 @@ podTemplate(
     containers: [
       containerTemplate(
         name: 'jnlp',
-        image: 'docker-registry.default.svc:5000/s4g19x-pwei1018-openshift201-may2019-tools/jenkins-slave-python3',
-        resourceRequestCpu: '100m',
-        resourceLimitCpu: '200m',
+        image: 'docker-registry.default.svc:5000/s4g19x-pwei1018-openshift201-may2019-tools/jenkins-slave-python3:3.7.3',
+        resourceRequestCpu: '1000m',
+        resourceLimitCpu: '2000m',
         resourceRequestMemory: '2Gi',
         resourceLimitMemory: '4Gi',
         workingDir: '/tmp',
