@@ -34,7 +34,7 @@ podTemplate(
       )
     ]
   ){
-    node {
+    node(label) {
         stage ('Checkout Source Code'){
             dir ('simple_pipeline') {
                 checkout scm
