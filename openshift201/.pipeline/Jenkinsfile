@@ -42,7 +42,7 @@ podTemplate(
         }
 \
         stage ('pytest'){
-            sh "/usr/local/bin/python --version"
+            sh "python --version"
         }
         /*
         stage ('Deploy Loki to Dev'){
