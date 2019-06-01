@@ -9,11 +9,11 @@ def LOKI_SERVICE  = "pwei1018-loki"
 def PROMETHEUS_SERVICE  = "pwei1018-prometheus"
 def GRAFANA_SERVICE  = "pwei1018-grafana"
 
-def label = 'test-python' + UUID.randomUUID().toString()
+def mylabel = 'test-python' + UUID.randomUUID().toString()
 
 //Pipeline
 podTemplate(
-    label: label,
+    label: mylabel,
     name: 'jenkins-slave-python',
     serviceAccount: 'jenkins',
     cloud: 'openshift',
@@ -34,7 +34,7 @@ podTemplate(
       )
     ]
   ){
-    node(label) {
+    node(mylabel) {
         stage ('Checkout Source Code'){
             dir ('simple_pipeline') {
                 checkout scm
