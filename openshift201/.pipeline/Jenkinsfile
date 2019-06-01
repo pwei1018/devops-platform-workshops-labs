@@ -9,17 +9,18 @@ def LOKI_SERVICE  = "pwei1018-loki"
 def PROMETHEUS_SERVICE  = "pwei1018-prometheus"
 def GRAFANA_SERVICE  = "pwei1018-grafana"
 
+def label = 'test-python' + UUID.randomUUID().toString()
 
 //Pipeline
 podTemplate(
-    label: 'test-python',
+    label: label,
     name: 'jenkins-slave-python',
     serviceAccount: 'jenkins',
     cloud: 'openshift',
     containers: [
       containerTemplate(
         name: 'jnlp',
-        image: '172.50.0.2:5000/openshift/jenkins-slave-base-rhel7',
+        image: 'docker-registry.default.svc:5000/s4g19x-pwei1018-openshift201-may2019-tools/jenkins-slave-python3',
         resourceRequestCpu: '1000m',
         resourceLimitCpu: '2000m',
         resourceRequestMemory: '2Gi',
