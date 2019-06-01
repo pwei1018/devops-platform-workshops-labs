@@ -12,6 +12,7 @@ def GRAFANA_SERVICE  = "pwei1018-grafana"
 
 node("python") {
     stage ('pytest'){
+        env.PATH="/usr/local/bin:${env.PATH}"
         sh 'echo $PATH'
         sh "python --version"
     }
