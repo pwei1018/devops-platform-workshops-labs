@@ -54,7 +54,14 @@ podTemplate(
         stage ('Checkout Source Code'){
             dir ('simple_pipeline') {
                 checkout scm
-            }
+                GIT_COMMIT_SHORT_HASH = sh (
+                        script: """git describe --always""", returnStdout: true
+                    ).trim()
+                GIT_COMMIT_AUTHOR = sh (
+                        script: """git show -s --pretty=%an""", returnStdout: true
+                    ).trim()
+                echo $GIT_COMMIT_SHORT_HASH
+                echo $GIT_COMMIT_AUTHOR
         }
 
         stage('Run pytest') {
