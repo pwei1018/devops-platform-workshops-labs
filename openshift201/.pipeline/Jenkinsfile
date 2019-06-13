@@ -76,6 +76,7 @@ podTemplate(
             }
         }
       }
+  }
         /*
         stage ('Deploy Loki to Dev'){
             dir ('simple_pipeline') {
