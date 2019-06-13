@@ -18,16 +18,6 @@ def call(def text_pr) {
   }
 }
 
-/*node("python") {
-    stage ('pytest'){
-        //env.PATH="/usr/local/bin:${env.PATH}"
-        sh 'echo $PATH'
-        sh "python --version"
-        sh "python3.7 --version"
-        sh "pip3.7 --version"
-
-    }
-}*/
 def mylabel = 'test-python' + UUID.randomUUID().toString()
 
 //Pipeline
