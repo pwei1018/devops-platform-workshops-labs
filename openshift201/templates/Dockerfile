@@ -28,6 +28,9 @@ RUN ln -s /usr/local/bin/pip3.7 /usr/bin/pip \
     && ln -s /usr/local/bin/python3.7 /usr/bin/python \
     && python --version \
     && pip install --upgrade pip setuptools \
+    && cd /home/jenkins \
+    && python -m venv venv \
+    && source venv/bin/activate \
     && pip install flake8 pylint pytest coverage
 
 # switch to non-root for openshift usage
