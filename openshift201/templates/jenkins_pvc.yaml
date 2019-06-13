@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+    volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/glusterfs
+  creationTimestamp: null
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    template: jenkins-persistent-template
+    template.openshift.io/template-instance-owner: cf97266f-54f0-11e9-9c9b-0050568348cc
+  name: jenkins
+  selfLink: /api/v1/namespaces/1rdehl-tools/persistentvolumeclaims/jenkins
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: gluster-file
+  volumeName: pvc-cfbef35f-54f0-11e9-b9b0-005056832285
+status: {}

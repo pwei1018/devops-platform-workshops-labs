@@ -9,8 +9,16 @@ def LOKI_SERVICE  = "pwei1018-loki"
 def PROMETHEUS_SERVICE  = "pwei1018-prometheus"
 def GRAFANA_SERVICE  = "pwei1018-grafana"
 
+def call(def text_pr) {
+  def repository_url = scm.userRemoteConfigs[0].url
+  def repository_name = repository_url.replace("git@github.com:","").replace(".git","")
 
-node("python") {
+  withCredentials([string(credentialsId: '<YOUR-TOKEN-ID>', variable: 'GITHUB_TOKEN')]) {
+    sh "curl -s -H \"Authorization: token ${GITHUB_TOKEN}\" -X POST -d '{\"body\": \"${text_pr}\"}' \"https://api.github.com/repos/${repository_name}/issues/${ghprbPullId}/comments\""
+  }
+}
+
+/*node("python") {
     stage ('pytest'){
         //env.PATH="/usr/local/bin:${env.PATH}"
         sh 'echo $PATH'
@@ -19,11 +27,11 @@ node("python") {
         sh "pip3.7 --version"
 
     }
-}
+}*/
 def mylabel = 'test-python' + UUID.randomUUID().toString()
 
 //Pipeline
-/*podTemplate(
+podTemplate(
     label: mylabel,
     name: 'jenkins-slave-python',
     serviceAccount: 'jenkins',
@@ -31,7 +39,7 @@ def mylabel = 'test-python' + UUID.randomUUID().toString()
     containers: [
       containerTemplate(
         name: 'jnlp',
-        image: 'docker-registry.default.svc:5000/s4g19x-pwei1018-openshift201-may2019-tools/jenkins-slave-python3:3.7.3',
+        image: '172.30.1.1:5000/local-tools/jenkins-slave-python3/jenkins-slave-python3:3.7.3',
         resourceRequestCpu: '1000m',
         resourceLimitCpu: '2000m',
         resourceRequestMemory: '2Gi',
@@ -49,9 +57,22 @@ def mylabel = 'test-python' + UUID.randomUUID().toString()
             }
         }
 
-        stage ('pytest'){
-            sh "python --version"
+        stage('Run pytest') {
+            echo "Running pytest ... "
+            sh '''
+            #!/bin/bash
+            echo $DATABASE_TEST_URL
+            '''
+            dir('auth-api') {
+            try {
+              sh '''
+                    pwd
+              '''
+            } catch (Exception e) {
+              echo "EXCEPTION: ${e}"
+            }
         }
+      }
         /*
         stage ('Deploy Loki to Dev'){
             dir ('simple_pipeline') {
